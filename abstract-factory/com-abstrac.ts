@@ -1,4 +1,10 @@
-class Car {
+// Abstract Product
+interface Vehicle {
+  getType(): string;
+}
+
+// Concrete Products
+class SportsCar implements Vehicle {
   private type: string;
 
   constructor() {
@@ -10,7 +16,7 @@ class Car {
   }
 }
 
-class Bike {
+class MountainBike implements Vehicle {
   private type: string;
 
   constructor() {
@@ -22,27 +28,27 @@ class Bike {
   }
 }
 
-
+// Abstract Factory
 interface VehicleFactory {
-  createCar(): Car;
-  createBike(): Bike;
+  createCar(): Vehicle;
+  createBike(): Vehicle;
 }
 
-
+// Concrete Factory
 class SportsVehicleFactory implements VehicleFactory {
-  public createCar(): Car {
-      return new Car();
+  public createCar(): Vehicle {
+      return new SportsCar();
   }
 
-  public createBike(): Bike {
-      return new Bike();
+  public createBike(): Vehicle {
+      return new MountainBike();
   }
 }
 
+// Client
+const factory: VehicleFactory = new SportsVehicleFactory();
+const cars = factory.createCar();
+const bikes = factory.createBike();
 
-const factory = new SportsVehicleFactory();
-const carrro = factory.createCar();
-const bicicleta = factory.createBike();
-
-console.log(car.getType());  
-console.log(bike.getType());  
+console.log(car.getType());  // Output: "Carro esportivo"
+console.log(bike.getType()); // Output: "Bicicleta de montanha"
